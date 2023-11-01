@@ -1,0 +1,77 @@
+.content_items{
+    display: flex;
+}
+
+
+/* Style the table container */
+.table-container {
+    overflow-x: auto; /* Enable horizontal scrolling */
+}
+
+/* Style the table to have a border and a fixed header */
+.table-container table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #ccc;
+}
+
+/* Style table header */
+.table-container thead {
+    background-color: #f2f2f2;
+}
+
+.table-container thead th {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+
+/* Style table rows */
+.table-container tbody td:not(:last-child) {
+    width: 12%;
+    padding: 1px;
+    border-bottom: 1px solid #ccc;
+}
+.table-container select{
+    width: 100%;
+}
+/* Style alternating rows with a different background color */
+.table-container tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+.table-container tbody tr {
+    margin-bottom: 0; /* Adjust the margin as needed */
+    padding: 0; /* Reset padding */
+}
+/* Style table cells like Excel cells */
+.table-container input[type="text"] {
+    border: none;
+    width: 100%;
+    box-sizing: border-box;
+    outline: none;
+    background-color: transparent;
+}
+/* Style the "+" and "-" buttons like Excel buttons */
+.table-container button[data-repeater-create],
+.table-container button[data-repeater-delete] {
+    border: 1px solid #ccc;
+    background-color: #f2f2f2;
+    cursor: pointer;
+    padding: 4px 8px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.table-container button[data-repeater-create]:hover,
+.table-container button[data-repeater-delete]:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+

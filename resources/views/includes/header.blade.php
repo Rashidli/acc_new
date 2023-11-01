@@ -31,7 +31,8 @@
     <link href="{{asset('assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
     <!-- App Css-->
     <link href="{{asset('assets/css/app.min.css')}}" id="app-style" rel="stylesheet" type="text/css" />
-
+    <link href="{{asset('assets/css/style.css')}}" id="app-style" rel="stylesheet" type="text/css" />
+    @livewireStyles
 
 </head>
 
@@ -148,20 +149,18 @@
                         </a>
                     </li>
 
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                <i class="ri-layout-3-line"></i>
-                                <span>İstifadəçilər</span>
-                            </a>
-                            <ul class="sub-menu" aria-expanded="false">
-                                <li><a href="{{route('users.create')}}">İstifadəçi yarat</a></li>
-                                <li><a href="{{route('users.index')}}">İstifadəçilər</a></li>
-                                <li><a href="{{route('roles.index')}}">Roles</a></li>
-                                <li><a href="{{route('permissions.index')}}">Permissions</a></li>
-                            </ul>
-                        </li>
-
-
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="ri-layout-3-line"></i>
+                            <span>İstifadəçilər</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="{{route('users.create')}}">İstifadəçi yarat</a></li>
+                            <li><a href="{{route('users.index')}}">İstifadəçilər</a></li>
+                            <li><a href="{{route('roles.index')}}">Roles</a></li>
+                            <li><a href="{{route('permissions.index')}}">Permissions</a></li>
+                        </ul>
+                    </li>
 
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
@@ -174,11 +173,51 @@
                             <li><a href="{{route('products.index')}}">Məhsullar</a></li>
                             <li><a href="{{route('warehouses.index')}}">Anbarlar</a></li>
                             <li><a href="{{route('banks.index')}}">Banklar</a></li>
+                            <li><a href="{{route('plans.index')}}">Hesablar planı</a></li>
                         </ul>
                     </li>
 
+                    <li>
+                        <a href="{{route('incomes.index')}}">
+                            <i class="ri-layout-3-line"></i>
+                            <span>Anbara mədaxil</span>
+                        </a>
+                    </li>
 
+                    <li>
+                        <a href="{{route('expenses.index')}}">
+                            <i class="ri-layout-3-line"></i>
+                            <span>Anbardan məxaric</span>
+                        </a>
+                    </li>
 
+                    <li>
+                        <a href="{{route('purchases.index')}}">
+                            <i class="ri-layout-3-line"></i>
+                            <span>Alışlar</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{route('bank_payments.index')}}">
+                            <i class="ri-layout-3-line"></i>
+                            <span>Bank ödənişləri</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{route('reports.index')}}">
+                            <i class="ri-layout-3-line"></i>
+                            <span>Hesabatlar</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{route('packages.index')}}">
+                            <i class="ri-layout-3-line"></i>
+                            <span>Paket ödənişlər</span>
+                        </a>
+                    </li>
 
                 </ul>
             </div>

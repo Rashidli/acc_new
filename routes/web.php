@@ -2,11 +2,18 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BankController;
+use App\Http\Controllers\BankPaymentController;
+use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\InstitutionController;
+use App\Http\Controllers\PackageController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\PlanController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WarehouseController;
@@ -46,5 +53,14 @@ Route::group(['middleware' =>'auth'], function (){
     Route::resource('institutions',InstitutionController::class);
     Route::resource('warehouses',WarehouseController::class);
     Route::resource('banks',BankController::class);
-
+    Route::resource('incomes',IncomeController::class);
+    Route::resource('expenses',ExpenseController::class);
+    Route::resource('plans',PlanController::class);
+    Route::resource('purchases',PurchaseController::class);
+    Route::resource('purchases',PurchaseController::class);
+    Route::resource('bank_payments',BankPaymentController::class);
+    Route::resource('reports',ReportController::class);
+    Route::post('/group_payment',[PackageController::class,'group_payment'])->name('group_payment');
+    Route::get('/packages',[PackageController::class, 'index'])->name('packages.index');
+    Route::delete('/packages/{package}',[PackageController::class, 'destroy'])->name('packages.destroy');
 });
