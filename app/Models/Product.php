@@ -9,7 +9,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'unit'];
+    protected $fillable = ['title', 'unit','code'];
 
     public function incomes()
     {
@@ -24,5 +24,10 @@ class Product extends Model
     public function purchases()
     {
         return $this->belongsToMany(Purchase::class)->withPivot('quantity','price','total_amount','unit','edv');
+    }
+
+    public function quotations()
+    {
+        return $this->belongsToMany(Quotation::class);
     }
 }

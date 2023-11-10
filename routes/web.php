@@ -13,6 +13,7 @@ use App\Http\Controllers\PlanController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\QuotationController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -60,6 +61,10 @@ Route::group(['middleware' =>'auth'], function (){
     Route::resource('purchases',PurchaseController::class);
     Route::resource('bank_payments',BankPaymentController::class);
     Route::resource('reports',ReportController::class);
+    Route::resource('quotations',QuotationController::class);
+
+
+
     Route::post('/group_payment',[PackageController::class,'group_payment'])->name('group_payment');
     Route::get('/packages',[PackageController::class, 'index'])->name('packages.index');
     Route::delete('/packages/{package}',[PackageController::class, 'destroy'])->name('packages.destroy');

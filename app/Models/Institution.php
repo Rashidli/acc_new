@@ -9,5 +9,5 @@ class Institution extends Model
 {
     use HasFactory;
 
-    protected $fillable  = ['title', 'voen', 'bank_account_number', 'bank_code', 'bank_voen', 'swift', 'correspondent_account',];
+    protected $fillable  = ['title', 'voen', 'bank_account_number', 'bank_code', 'bank_voen', 'swift', 'correspondent_account','contract'];
 }

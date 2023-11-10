@@ -29,6 +29,7 @@ class PackageController extends Controller
             $package->title = $company;
             $package->voen = $companyModel->voen;
             $package->bank_account_number = $companyModel->bank_account_number;
+            $package->contract = $companyModel->contract;
             $package->bank_code = $companyModel->bank_code;
             $package->amount = $residualBasis;
             $package->elect_invoice = $electInvoice;

@@ -26,6 +26,13 @@
                                     @if($errors->first('unit')) <small class="form-text text-danger">{{$errors->first('unit')}}</small> @endif
                                 </div>
                             </div>
+                            <div class="col-3">
+                                <div class="mb-3">
+                                    <label class="col-form-label">Kodu</label>
+                                    <input value="{{$product->code}}" class="form-control" type="number" name="code">
+                                    @if($errors->first('code')) <small class="form-text text-danger">{{$errors->first('code')}}</small> @endif
+                                </div>
+                            </div>
                             <div class="mt-6">
                                 <button class="btn btn-primary">Yadda saxla</button>
                             </div>

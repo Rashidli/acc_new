@@ -57,6 +57,14 @@
                                         @if($errors->first('correspondent_account')) <small class="form-text text-danger">{{$errors->first('correspondent_account')}}</small> @endif
                                     </div>
                                 </div>
+
+                                <div class="col-3">
+                                    <div class="mb-3">
+                                        <label class="col-form-label">Müqavilə</label>
+                                        <input value="{{old('contract')}}" class="form-control" type="text" name="contract">
+                                        @if($errors->first('contract')) <small class="form-text text-danger">{{$errors->first('contract')}}</small> @endif
+                                    </div>
+                                </div>
                                 <div class="mt-6">
                                     <button class="btn btn-primary">Yadda saxla</button>
                                 </div>

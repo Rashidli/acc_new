@@ -219,6 +219,13 @@
                         </a>
                     </li>
 
+                    <li>
+                        <a href="{{route('quotations.index')}}">
+                            <i class="ri-layout-3-line"></i>
+                            <span>Satışlar</span>
+                        </a>
+                    </li>
+
                 </ul>
             </div>
             <!-- Sidebar -->

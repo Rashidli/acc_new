@@ -31,6 +31,7 @@
                                                 <th>Adı</th>
                                                 <th>Məbləğ</th>
                                                 <th>Təyinat</th>
+                                                <th>Təyinat 2</th>
                                             </tr>
                                         </thead>
 
@@ -46,6 +47,7 @@
                                                     <td>{{$ins->title}}</td>
                                                     <td>{{$ins->amount}}</td>
                                                     <td>{{$ins->elect_invoice}}</td>
+                                                    <td>{{$ins->contract}}</td>
 
                                                 </tr>
                                             @endforeach

@@ -10,7 +10,7 @@
                                 @if(session('message'))
                                     <div class="alert alert-success">{{session('message')}}</div>
                                 @endif
-                                <h4 class="card-title">Aktlar</h4>
+                                <h4 class="card-title">Müəssisələr</h4>
 
                                         <a href="{{route('institutions.create')}}" class="btn btn-primary">+</a>
                                         <a href="" disabled="disabled" class="btn btn-primary edit_form" style="margin-right: 15px" >Edit</a>
@@ -19,6 +19,7 @@
                                             @csrf
                                             <button type="submit" disabled class="btn btn-danger">Delete</button>
                                         </form>
+
                                 <br>
                                 <br>
 
@@ -33,6 +34,7 @@
                                                 <th>Bank VÖEN</th>
                                                 <th>Swift</th>
                                                 <th>Müxbir hesab</th>
+                                                <th>Müqavilə</th>
                                             </tr>
                                         </thead>
 
@@ -49,6 +51,7 @@
                                                     <td>{{$ins->bank_voen}}</td>
                                                     <td>{{$ins->swift}}</td>
                                                     <td>{{$ins->correspondent_account}}</td>
+                                                    <td>{{$ins->contract}}</td>
 
                                                 </tr>
                                             @endforeach
