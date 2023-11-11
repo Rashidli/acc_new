@@ -16,6 +16,7 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\QuotationController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SaleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WarehouseController;
 use Illuminate\Support\Facades\Route;
@@ -62,7 +63,7 @@ Route::group(['middleware' =>'auth'], function (){
     Route::resource('bank_payments',BankPaymentController::class);
     Route::resource('reports',ReportController::class);
     Route::resource('quotations',QuotationController::class);
-
+    Route::resource('sales',SaleController::class);
 
 
     Route::post('/group_payment',[PackageController::class,'group_payment'])->name('group_payment');

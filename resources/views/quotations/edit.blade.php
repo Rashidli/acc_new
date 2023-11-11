@@ -15,7 +15,7 @@
 
                             <div class="col-3">
                                 <div class="mb-3">
-                                    <label class="col-form-label">Satış nömrəsi</label>
+                                    <label class="col-form-label">Quotation nömrəsi</label>
                                     <input value="{{$quotation->quotation_number}}" class="form-control" type="text" name="quotation_number">
                                     @if($errors->first('quotation_number')) <small class="form-text text-danger">{{$errors->first('quotation_number')}}</small> @endif
                                 </div>
@@ -86,27 +86,11 @@
                                                 <td>
                                                     <button data-repeater-delete class="btn btn-danger" type="button">-</button>
                                                 </td>
-                                            </trdata-repeater-item>
+                                            </tr>
                                         @empty
                                             <!-- Display a default row if there are no associated products -->
                                         @endforelse
-{{--                                        <tr >--}}
-{{--                                            <td>--}}
-{{--                                                <select required name="product_id" class="electron_invoice_select">--}}
-{{--                                                    <option selected disabled>----- </option>--}}
-{{--                                                    @foreach($products as $product)--}}
-{{--                                                        <option value="{{ $product->id }}" data-unit="{{ $product->unit }}"--}}
-{{--                                                                data-code="{{ $product->code }}">{{ $product->title }}</option>--}}
-{{--                                                    @endforeach--}}
-{{--                                                </select>--}}
-{{--                                            </td>--}}
-{{--                                            <td><input required name="unit" value="" class="form-control unit"></td>--}}
-{{--                                            <td><input required name="code" value="" class="form-control code"></td>--}}
-{{--                                            <td><input required name="price" value="" class="form-control"></td>--}}
-{{--                                            <td>--}}
-{{--                                                <button data-repeater-delete class="btn btn-danger" type="button">-</button>--}}
-{{--                                            </td>--}}
-{{--                                        </tr>--}}
+
                                         </tbody>
                                     </table>
                                     <br>
@@ -117,7 +101,17 @@
                                 <br>
                             </div>
 
-
+                            <div class="col-3">
+                                <div class="mb-3">
+                                    <label class="col-form-label">Status</label>
+                                    <select class="form-control js-example-basic-single" type="text" name="status" id="status">
+                                        <option value="1" {{$quotation->status == 1 ? 'selected' : ''}}>Pending</option>
+                                        <option value="2" {{$quotation->status == 2 ? 'selected' : ''}}>Approved</option>
+                                        <option value="3" {{$quotation->status == 3 ? 'selected' : ''}}>Cancelled</option>
+                                    </select>
+                                    @if($errors->first('institution')) <small class="form-text text-danger">{{$errors->first('institution')}}</small> @endif
+                                </div>
+                            </div>
                             <div class="mt-6">
                                 <button class="btn btn-primary">Yadda saxla</button>
                             </div>

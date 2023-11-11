@@ -5,26 +5,26 @@ namespace App\Http\Controllers;
 use App\Models\Institution;
 use App\Models\Product;
 use App\Models\Quotation;
+use App\Models\Sale;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class QuotationController extends Controller
+class SaleController extends Controller
 {
     public function __construct()
     {
 
-        $this->middleware('permission:list-quotations|create-quotations|edit-quotations|delete-quotations', ['only' => ['index','show']]);
-        $this->middleware('permission:create-quotations', ['only' => ['create','store']]);
-        $this->middleware('permission:edit-quotations', ['only' => ['edit']]);
-        $this->middleware('permission:delete-quotations', ['only' => ['destroy']]);
+        $this->middleware('permission:list-sales|create-sales|edit-sales|delete-sales', ['only' => ['index','show']]);
+        $this->middleware('permission:create-sales', ['only' => ['create','store']]);
+        $this->middleware('permission:edit-sales', ['only' => ['edit']]);
+        $this->middleware('permission:delete-sales', ['only' => ['destroy']]);
 
     }
 
     public function index()
     {
 
-        $quotations = Quotation::orderBy('id', 'DESC')->get();
-        return view('quotations.index', compact( 'quotations'));
+        $sales = Sale::orderBy('id', 'DESC')->get();
+        return view('sales.index', compact( 'sales'));
 
     }
 
@@ -33,9 +33,9 @@ class QuotationController extends Controller
      */
     public function create()
     {
-        $ins = Institution::all();
+        $quotations = Quotation::all();
         $products = Product::all();
-        return view('quotations.create', compact('ins','products'));
+        return view('sales.create', compact('quotations','products'));
     }
 
     /**
@@ -45,18 +45,24 @@ class QuotationController extends Controller
     public function store(Request $request)
     {
 
-
+//        dd($request->all());
         $validated = $request->validate([
-            'quotation_number' => 'required',
-            'institution' => 'required',
+            'sale_number' => 'required',
+            'company' => 'required',
             'contract' => 'required',
+            'quotation_id' => 'required',
             'date' => 'required',
+            'tax' => 'nullable',
+
+            'tax_fee' => 'nullable',
+            'sub_total'=> 'nullable',
+            'total_amount'=>'required'
         ]);
 
         try {
-            $quotation = Quotation::create($validated);
+            $sale = Sale::create($validated);
 
-            $products = $request->quotation_products;
+            $products = $request->sale_products;
             $productData = [];
 
             foreach ($products as $product) {
@@ -64,12 +70,14 @@ class QuotationController extends Controller
                     'unit' => $product['unit'],
                     'code' => $product['code'],
                     'price' => $product['price'],
+                    'quantity' => $product['quantity'],
+                    'sub_total' => $product['sub_total'],
                 ];
             }
 
-            $quotation->products()->attach($productData);
+            $sale->products()->attach($productData);
 
-            return redirect()->route('quotations.index')->with('message', 'Satış əlavə edildi.');
+            return redirect()->route('sales.index')->with('message', 'Satış əlavə edildi.');
         } catch (\Exception $e) {
 
             return redirect()->back()->with('error', 'Error: ' . $e->getMessage());
@@ -81,7 +89,7 @@ class QuotationController extends Controller
      * Display the specified resource.
      */
 
-    public function show(Quotation $QuotationRequest)
+    public function show(Sale $SaleRequest)
     {
         //
     }
@@ -92,10 +100,11 @@ class QuotationController extends Controller
 
     public function edit($id)
     {
-        $quotation = Quotation::with('products')->findOrFail($id);
-        $ins = Institution::all();
+
+        $sale = Sale::with('products')->findOrFail($id);
+        $quotations = Quotation::all();
         $products = Product::all();
-        return view('quotations.edit', compact('quotation' ,'ins','products'));
+        return view('sales.edit', compact('sale' ,'quotations','products'));
 
     }
 
@@ -103,11 +112,11 @@ class QuotationController extends Controller
      * Update the specified resource in storage.
      */
 
-    public function update(Request $request, Quotation $quotation)
+    public function update(Request $request, Sale $sale)
     {
 
         $validated = $request->validate([
-            'quotation_number' => 'required',
+            'sale_number' => 'required',
             'institution' => 'required',
             'contract' => 'required',
             'date' => 'required',
@@ -115,9 +124,9 @@ class QuotationController extends Controller
         ]);
 
         try {
-            $quotation->update($validated);
+            $sale->update($validated);
 
-            $products = $request->quotation_products;
+            $products = $request->sale_products;
             $productData = [];
 
             foreach ($products as $product) {
@@ -128,7 +137,7 @@ class QuotationController extends Controller
                 ];
             }
 
-            $quotation->products()->sync($productData);
+            $sale->products()->sync($productData);
 
             return redirect()->back()->with('message', 'Satış dəyişdirildi.');
 
@@ -141,10 +150,10 @@ class QuotationController extends Controller
      * Remove the specified resource from storage.
      */
 
-    public function destroy(Quotation $quotation)
+    public function destroy(Sale $sale)
     {
 
-        $quotation->delete();
+        $sale->delete();
 
         return redirect()->back()->with('message', 'Satış silindi.');
 

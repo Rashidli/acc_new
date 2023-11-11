@@ -10,7 +10,7 @@
                             <div class="row">
                                 <div class="col-3">
                                     <div class="mb-3">
-                                        <label class="col-form-label">Satış nömrəsi</label>
+                                        <label class="col-form-label">Quotation nömrəsi</label>
                                         <input value="{{old('quotation_number')}}" class="form-control" type="text" name="quotation_number">
                                         @if($errors->first('quotation_number')) <small class="form-text text-danger">{{$errors->first('quotation_number')}}</small> @endif
                                     </div>

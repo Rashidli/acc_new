@@ -222,7 +222,14 @@
                     <li>
                         <a href="{{route('quotations.index')}}">
                             <i class="ri-layout-3-line"></i>
-                            <span>Satışlar</span>
+                            <span>Quotations</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{route('sales.index')}}">
+                            <i class="ri-layout-3-line"></i>
+                            <span>Sales order</span>
                         </a>
                     </li>
 
