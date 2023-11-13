@@ -29,6 +29,7 @@ class InstitutionRequest extends FormRequest
             'bank_voen' => 'required|string|max:255',
             'swift' => 'required|string|max:255',
             'correspondent_account' => 'required|string|max:255',
+            'contract' => 'required|string|max:255',
         ];
     }
 }

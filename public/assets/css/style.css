@@ -75,3 +75,44 @@
     color: #fff;
 }
 
+<<<<<<< HEAD
+=======
+
+
+
+
+.quotation_table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.quotation_table tbody th, .quotation_table tbody td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.quotation_table th {
+    background-color: #f2f2f2;
+}
+
+.quotation_table select, .quotation_table input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px;
+    margin: 0;
+}
+
+.quotation_table button {
+    padding: 8px;
+    cursor: pointer;
+}
+
+/* Optional: Style for the select dropdown */
+.quotation_table .electron_invoice_select {
+    width: 200px; /* Adjust the width as needed */
+    box-sizing: border-box;
+}
+/* Style the container for better alignment */
+
+>>>>>>> 04ccb2e6789ea20ffac11d93f3310c7ac0489a26

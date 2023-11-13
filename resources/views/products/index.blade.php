@@ -27,6 +27,7 @@
                                             <th>Seç</th>
                                             <th>Adı</th>
                                             <th>Vahidi</th>
+                                            <th>Kod</th>
                                         </tr>
                                         </thead>
 
@@ -36,6 +37,7 @@
                                                 <td><input type="radio" class="radio_input" name="check" data-edit="{{route('products.edit',$product->id)}}" data-delete="{{route('products.destroy', $product->id)}}"></td>
                                                 <td>{{$product->title}}</td>
                                                 <td>{{$product->unit}}</td>
+                                                <td>{{$product->code}}</td>
 
                                             </tr>
                                         @endforeach

@@ -218,6 +218,23 @@
                             <span>Paket ödənişlər</span>
                         </a>
                     </li>
+<<<<<<< HEAD
+=======
+
+                    <li>
+                        <a href="{{route('quotations.index')}}">
+                            <i class="ri-layout-3-line"></i>
+                            <span>Quotations</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{route('sales.index')}}">
+                            <i class="ri-layout-3-line"></i>
+                            <span>Sales order</span>
+                        </a>
+                    </li>
+>>>>>>> 04ccb2e6789ea20ffac11d93f3310c7ac0489a26
 
                 </ul>
             </div>

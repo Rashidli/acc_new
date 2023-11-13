@@ -27,6 +27,7 @@ class ProductRequest extends FormRequest
 
             'title' => 'required|string|max:255',
             'unit' => 'required|string|max:255',
+            'code' => 'required|string|max:255',
 
         ];
     }
