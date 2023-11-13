@@ -10,4 +10,19 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = ['title', 'unit'];
+
+    public function incomes()
+    {
+        return $this->belongsToMany(Income::class)->withPivot('quantity');
+    }
+
+    public function expenses()
+    {
+        return $this->belongsToMany(Expense::class)->withPivot('quantity');
+    }
+
+    public function purchases()
+    {
+        return $this->belongsToMany(Purchase::class)->withPivot('quantity','price','total_amount','unit','edv');
+    }
 }

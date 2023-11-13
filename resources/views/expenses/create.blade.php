@@ -2,7 +2,7 @@
     <div class="main-content">
         <div class="page-content">
             <div class="container-fluid">
-                <form action="{{route('incomes.store')}}" method="post" enctype="multipart/form-data">
+                <form action="{{route('expenses.store')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="card">
                         <div class="card-body">

@@ -10,9 +10,9 @@
                                 @if(session('message'))
                                     <div class="alert alert-success">{{session('message')}}</div>
                                 @endif
-                                <h4 class="card-title">Anbara mədaxil</h4>
+                                <h4 class="card-title">Anbardan məxaric</h4>
 
-                                    <a href="{{route('incomes.create')}}" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                    <a href="{{route('expenses.create')}}" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
                                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                                             <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
                                         </svg></a>
@@ -45,14 +45,14 @@
                                         </thead>
 
                                         <tbody>
-                                        @foreach($incomes as $income)
+                                        @foreach($expenses as $expense)
                                             <tr>
 
-                                                <td><input type="radio" class="radio_input" name="check" data-edit="{{route('incomes.edit',$income->id)}}" data-delete="{{route('incomes.destroy', $income->id)}}"></td>
-                                                <td>{{$income->income_number}}</td>
-                                                <td>{{$income->company}}</td>
-                                                <td>{{$income->warehouse_name}}</td>
-                                                <td>{{$income->date}}</td>
+                                                <td><input type="radio" class="radio_input" name="check" data-edit="{{route('expenses.edit',$expense->id)}}" data-delete="{{route('expenses.destroy', $expense->id)}}"></td>
+                                                <td>{{$expense->expense_number}}</td>
+                                                <td>{{$expense->company}}</td>
+                                                <td>{{$expense->warehouse_name}}</td>
+                                                <td>{{$expense->date}}</td>
 
                                             </tr>
                                         @endforeach

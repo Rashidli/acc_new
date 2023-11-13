@@ -5,12 +5,12 @@
             @if(session('message'))
                 <div class="alert alert-success">{{session('message')}}</div>
             @endif
-            <form action="{{route('incomes.update', $income->id)}}" method="post" enctype="multipart/form-data">
+            <form action="{{route('expenses.update', $expense->id)}}" method="post" enctype="multipart/form-data">
                 {{ method_field('PUT') }}
                 @csrf
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">{{$income->income_number}}</h4>
+                        <h4 class="card-title">{{$expense->expense_number}}</h4>
                         <div class="row">
 
                             <div class="col-3">
@@ -19,7 +19,7 @@
                                     <select class="form-control js-example-basic-single" type="text" name="company" id="company">
                                         <option selected disabled>----- </option>
                                         @foreach($ins as $c)
-                                            <option value="{{$c->title}}" {{$income->company == $c->title ? 'selected' : ''}}>{{$c->title}}</option>
+                                            <option value="{{$c->title}}" {{$expense->company == $c->title ? 'selected' : ''}}>{{$c->title}}</option>
                                         @endforeach
                                     </select>
                                     @if($errors->first('company')) <small class="form-text text-danger">{{$errors->first('company')}}</small> @endif
@@ -32,7 +32,7 @@
                                     <select class="form-control js-example-basic-single" type="text" name="warehouse_name" id="corporate_name">
                                         <option selected disabled>----- </option>
                                         @foreach($wares as $c)
-                                            <option value="{{$c->title}}" {{$income->warehouse_name == $c->title ? 'selected' : ''}}>{{$c->title}}</option>
+                                            <option value="{{$c->title}}" {{$expense->warehouse_name == $c->title ? 'selected' : ''}}>{{$c->title}}</option>
                                         @endforeach
                                     </select>
                                     @if($errors->first('warehouse_name')) <small class="form-text text-danger">{{$errors->first('warehouse_name')}}</small> @endif
@@ -42,14 +42,14 @@
                             <div class="col-3">
                                 <div class="mb-3">
                                     <label class="col-form-label">Tarixi</label>
-                                    <input value="{{$income->date}}" class="form-control" type="date" name="date">
+                                    <input value="{{$expense->date}}" class="form-control" type="date" name="date">
                                     @if($errors->first('date')) <small class="form-text text-danger">{{$errors->first('date')}}</small> @endif
                                 </div>
                             </div>
 
                             <div class="col-12">
 
-                                @livewire('products', ['income' => $income])
+                                @livewire('products', ['expense' => $expense])
 
                             </div>
 

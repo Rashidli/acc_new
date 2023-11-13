@@ -12,8 +12,8 @@
                                 @endif
                                 <h4 class="card-title">Banklar</h4>
                                         <a href="{{route('banks.create')}}" class="btn btn-primary">+</a>
-                                    <a href="" class="btn btn-primary" style="margin-right: 15px" >Edit</a>
-                                    <form action="" method="post" style="display: inline-block">
+                                    <a href="" class="btn btn-primary edit_form" style="margin-right: 15px" >Edit</a>
+                                    <form action="" method="post" style="display: inline-block" class="delete_form">
                                         {{ method_field('DELETE') }}
                                         @csrf
                                         <button type="submit" disabled class="btn btn-danger">Delete</button>
