@@ -11,17 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('packages', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->string('voen');
-            $table->string('bank_account_number');
-            $table->string('bank_code');
-            $table->string('amount');
-            $table->string('elect_invoice');
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        if(!Schema::hasTable('packages')){
+            Schema::create('packages', function (Blueprint $table) {
+                $table->id();
+                $table->string('title');
+                $table->string('voen');
+                $table->string('bank_account_number');
+                $table->string('bank_code');
+                $table->string('amount');
+                $table->string('elect_invoice');
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
+
     }
 
     /**

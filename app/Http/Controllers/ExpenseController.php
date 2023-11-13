@@ -112,15 +112,18 @@ class ExpenseController extends Controller
 
         try {
             $validated = $request->validated();
+            $expense->update($validated);
 
             if ($request->orderProducts) {
-                $expense->products()->sync([]);
+                $productData = [];
+
                 foreach ($request->orderProducts as $product) {
-                    $expense->products()->attach($product['product_id'], ['quantity' => $product['measure']]);
+                    $productData[$product['product_id']] = ['quantity' => $product['measure']];
                 }
+
+                $expense->products()->sync($productData);
             }
 
-            $expense->update($validated);
             DB::commit();
             return redirect()->back()->with('message', 'Məxaric dəyişdirildi.');
         }catch (\Exception $exception){

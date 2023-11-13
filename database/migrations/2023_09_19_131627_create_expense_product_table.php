@@ -12,15 +12,18 @@ return new class extends Migration
 
     public function up(): void
     {
-        Schema::create('expense_product', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('expense_id');
-            $table->unsignedBigInteger('product_id');
+        if(!Schema::hasTable('expense_product')){
+            Schema::create('expense_product', function (Blueprint $table) {
+                $table->id();
+                $table->unsignedBigInteger('expense_id');
+                $table->unsignedBigInteger('product_id');
 
-            $table->string('quantity');
-            $table->foreign('expense_id')->references('id')->on('expenses')->onDelete('cascade');
-            $table->timestamps();
-        });
+                $table->string('quantity');
+                $table->foreign('expense_id')->references('id')->on('expenses')->onDelete('cascade');
+                $table->timestamps();
+            });
+        }
+
     }
 
     /**

@@ -218,8 +218,7 @@
                             <span>Paket ödənişlər</span>
                         </a>
                     </li>
-<<<<<<< HEAD
-=======
+
 
                     <li>
                         <a href="{{route('quotations.index')}}">
@@ -234,7 +233,7 @@
                             <span>Sales order</span>
                         </a>
                     </li>
->>>>>>> 04ccb2e6789ea20ffac11d93f3310c7ac0489a26
+
 
                 </ul>
             </div>

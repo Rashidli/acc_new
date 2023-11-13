@@ -69,7 +69,7 @@ class QuotationController extends Controller
 
             $quotation->products()->attach($productData);
 
-            return redirect()->route('quotations.index')->with('message', 'Satış əlavə edildi.');
+            return redirect()->route('quotations.index')->with('message', 'Quotation əlavə edildi.');
         } catch (\Exception $e) {
 
             return redirect()->back()->with('error', 'Error: ' . $e->getMessage());
@@ -130,7 +130,7 @@ class QuotationController extends Controller
 
             $quotation->products()->sync($productData);
 
-            return redirect()->back()->with('message', 'Satış dəyişdirildi.');
+            return redirect()->back()->with('message', 'Quotation dəyişdirildi.');
 
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error: ' . $e->getMessage());
@@ -146,7 +146,7 @@ class QuotationController extends Controller
 
         $quotation->delete();
 
-        return redirect()->back()->with('message', 'Satış silindi.');
+        return redirect()->back()->with('message', 'Quotation silindi.');
 
     }
 }

@@ -74,7 +74,7 @@
                                 <br>
                                 <h4 class="card-title">Məhsullar</h4>
 
-                                <div class="sale_table repeater">
+                                <div class="quotation_table repeater">
                                     <table>
                                         <thead>
                                         <tr>
@@ -82,6 +82,8 @@
                                             <th>Vahidi</th>
                                             <th>Kodu</th>
                                             <th>Qiyməti</th>
+                                            <th>Miqdarı</th>
+                                            <th>Cəm</th>
                                             <th>-</th>
                                         </tr>
                                         </thead>
@@ -89,7 +91,7 @@
                                         @forelse($sale->products as $product)
                                             <tr data-repeater-item>
                                                 <td>
-                                                    <select required name="product_id" class="electron_invoice_select">
+                                                    <select required name="product_id" class="electron_invoice_select" id="productSelect">
                                                         <option selected disabled>----- </option>
                                                         @foreach($products as $availableProduct)
                                                             <option {{ $product->id == $availableProduct->id ? 'selected' : '' }}
@@ -100,7 +102,7 @@
                                                 </td>
                                                 <td><input required name="unit" value="{{ $product->pivot->unit }}" class="form-control unit"></td>
                                                 <td><input required name="code" value="{{ $product->pivot->code }}" class="form-control code"></td>
-                                                <td><input required name="price" value="{{ $product->pivot->price }}" class="form-control"></td>
+                                                <td><input required name="price" value="{{ $product->pivot->price }}" class="form-control price"></td>
                                                 <td><input required name="quantity" value="{{ $product->pivot->quantity }}" class="form-control quantity"></td>
                                                 <td><input required name="sub_total" value="{{ $product->pivot->sub_total }}" class="form-control sub_total"></td>
                                                 <td>
@@ -146,7 +148,7 @@
                                         <option value="2" {{$sale->status == 2 ? 'selected' : ''}}>Approved</option>
                                         <option value="3" {{$sale->status == 3 ? 'selected' : ''}}>Cancelled</option>
                                     </select>
-                                    @if($errors->first('institution')) <small class="form-text text-danger">{{$errors->first('institution')}}</small> @endif
+                                    @if($errors->first('status')) <small class="form-text text-danger">{{$errors->first('status')}}</small> @endif
                                 </div>
                             </div>
                             <div class="mt-6">
@@ -163,9 +165,11 @@
 @include('includes.footer')
 <script>
     $(document).ready(function(){
-        $('#institution').change(function(){
 
+
+        function handleInstitutionChange() {
             var selectedOption = $(this).find(':selected');
+            var idValue = selectedOption.val();
 
             var contractValue = selectedOption.data('contract');
             var institutionValue = selectedOption.data('company');
@@ -173,7 +177,96 @@
             $('#contract').val(contractValue);
             $('#company').val(institutionValue);
 
+            $.ajax({
+                type: 'POST',
+                url: '/getProducts',
+                data: { id: idValue },
+                success: function(response) {
+
+                    var productSelect = $('.electron_invoice_select');
+
+                    productSelect.empty();
+
+                    var defaultOption = $('<option>', {
+                        selected: true,
+                        disabled: true
+                    }).text('-----');
+                    productSelect.append(defaultOption);
+
+                    $.each(response, function(index, product) {
+                        var option = $('<option>', {
+                            value: product.id,
+                            'data-unit': product.unit,
+                            'data-code': product.code,
+                            'data-price': product.pivot.price,
+                        }).text(product.title);
+
+                        productSelect.append(option);
+                    });
+                },
+                error: function(xhr, status, error) {
+                    // Handle errors here
+                }
+            });
+
+        }
+
+        function getProduct(){
+
+            var selectedOption = $('#institution').find(':selected');
+            var idValue = selectedOption.val();
+
+            $.ajax({
+                type: 'POST',
+                url: '/getProducts',
+                data: { id: idValue },
+                success: function(response) {
+                    var newRow = $('.repeater').find('tbody tr').last();
+
+                    var productSelect = newRow.find('.electron_invoice_select');
+                    productSelect.empty(); // Clear existing options
+
+                    // Add the default "-----" option
+                    var defaultOption = $('<option>', {
+                        selected: true,
+                        disabled: true
+                    }).text('-----');
+                    productSelect.append(defaultOption);
+
+                    // Add new options based on the response
+                    $.each(response, function(index, product) {
+                        var option = $('<option>', {
+                            value: product.id,
+                            'data-unit': product.unit,
+                            'data-code': product.code,
+                            'data-price': product.pivot.price,
+                        }).text(product.title);
+
+                        productSelect.append(option);
+                    });
+                },
+                error: function(xhr, status, error) {
+                    // Handle errors here
+                }
+            });
+        }
+
+        $('#institution').change(handleInstitutionChange);
+        $('.repeater').on('click', '[data-repeater-create]', function() {
+
+            getProduct();
+
         });
+
+
+
+
+
+
+
+
+
+
 
         // Add an onchange event listener to the .electron_invoice_select using jQuery
         $(document).on('change', '.electron_invoice_select', function () {
@@ -182,12 +275,16 @@
             // Get the value of the data-code and data-unit attributes
             var codeValue = selectedOption.data('code');
             var unitValue = selectedOption.data('unit');
+            var priceValue = selectedOption.data('price');
             // Find the corresponding code and unit inputs directly within the same table row
             var codeInput = $(this).closest('tr').find('.code');
             var unitInput = $(this).closest('tr').find('.unit');
+            var priceInput = $(this).closest('tr').find('.price');
+
             // Set the value of the code and unit inputs
             codeInput.val(codeValue);
             unitInput.val(unitValue);
+            priceInput.val(priceValue);
         });
 
 

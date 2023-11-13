@@ -31,10 +31,8 @@
                                                 <th>Adı</th>
                                                 <th>Məbləğ</th>
                                                 <th>Təyinat</th>
-<<<<<<< HEAD
-=======
                                                 <th>Təyinat 2</th>
->>>>>>> 04ccb2e6789ea20ffac11d93f3310c7ac0489a26
+
                                             </tr>
                                         </thead>
 
@@ -50,10 +48,8 @@
                                                     <td>{{$ins->title}}</td>
                                                     <td>{{$ins->amount}}</td>
                                                     <td>{{$ins->elect_invoice}}</td>
-<<<<<<< HEAD
-=======
                                                     <td>{{$ins->contract}}</td>
->>>>>>> 04ccb2e6789ea20ffac11d93f3310c7ac0489a26
+
 
                                                 </tr>
                                             @endforeach

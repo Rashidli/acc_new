@@ -117,15 +117,18 @@ class IncomeController extends Controller
 
         try {
             $validated = $request->validated();
+            $income->update($validated);
 
             if ($request->orderProducts) {
-                $income->products()->sync([]);
+                $productData = [];
+
                 foreach ($request->orderProducts as $product) {
-                    $income->products()->attach($product['product_id'], ['quantity' => $product['measure']]);
+                    $productData[$product['product_id']] = ['quantity' => $product['measure']];
                 }
+
+                $income->products()->sync($productData);
             }
 
-            $income->update($validated);
             DB::commit();
             return redirect()->back()->with('message', 'Mədaxil dəyişdirildi.');
         }catch (\Exception $exception){

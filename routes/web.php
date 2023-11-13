@@ -68,6 +68,7 @@ Route::group(['middleware' =>'auth'], function (){
 
     Route::resource('quotations',QuotationController::class);
     Route::resource('sales',SaleController::class);
+    Route::post('/getProducts', [SaleController::class,'getProducts'])->name('getProducts');
 
 
 

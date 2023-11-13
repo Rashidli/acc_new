@@ -11,20 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bank_payments', function (Blueprint $table) {
-            $table->id();
-            $table->string('electron_invoice');
-            $table->string('debet');
-            $table->string('credit');
-            $table->integer('voen');
-            $table->string('company');
-            $table->string('date');
-            $table->string('payment_type');
-            $table->string('payment_amount');
-            $table->string('bank');
-            $table->softDeletes();
-            $table->timestamps();
-        });
+        if(!Schema::hasTable('bank_payments')){
+            Schema::create('bank_payments', function (Blueprint $table) {
+                $table->id();
+                $table->string('electron_invoice');
+                $table->string('debet');
+                $table->string('credit');
+                $table->integer('voen');
+                $table->string('company');
+                $table->string('date');
+                $table->string('payment_type');
+                $table->string('payment_amount');
+                $table->string('bank');
+                $table->softDeletes();
+                $table->timestamps();
+            });
+        }
+
     }
 
     /**

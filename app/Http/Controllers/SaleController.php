@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Status;
 use App\Models\Institution;
 use App\Models\Product;
 use App\Models\Quotation;
 use App\Models\Sale;
 use Illuminate\Http\Request;
+use function Termwind\renderUsing;
 
 class SaleController extends Controller
 {
@@ -33,9 +35,25 @@ class SaleController extends Controller
      */
     public function create()
     {
-        $quotations = Quotation::all();
+
+        $quotations = Quotation::where('status', Status::APPROVED)->get();
         $products = Product::all();
         return view('sales.create', compact('quotations','products'));
+
+    }
+
+    public function getProducts(Request $request)
+    {
+
+        try {
+            $quotation = Quotation::with('products')->where('status', Status::APPROVED)->findOrFail($request->id);
+
+            $products = $quotation->products;
+
+            return response()->json($products);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Quotation not found'], 404);
+        }
     }
 
     /**
@@ -102,8 +120,9 @@ class SaleController extends Controller
     {
 
         $sale = Sale::with('products')->findOrFail($id);
+        $products = Quotation::with('products')->findOrFail($sale->quotation_id)->products;
         $quotations = Quotation::all();
-        $products = Product::all();
+
         return view('sales.edit', compact('sale' ,'quotations','products'));
 
     }
@@ -115,12 +134,20 @@ class SaleController extends Controller
     public function update(Request $request, Sale $sale)
     {
 
+//        dd($request->all());
+
         $validated = $request->validate([
             'sale_number' => 'required',
-            'institution' => 'required',
+            'company' => 'required',
             'contract' => 'required',
+            'quotation_id' => 'required',
             'date' => 'required',
-            'status' => 'required',
+            'tax' => 'nullable',
+
+            'tax_fee' => 'nullable',
+            'sub_total'=> 'nullable',
+            'total_amount'=>'required',
+            'status'=>'required',
         ]);
 
         try {
@@ -132,8 +159,10 @@ class SaleController extends Controller
             foreach ($products as $product) {
                 $productData[$product['product_id']] = [
                     'unit' => $product['unit'],
-                    'price' => $product['price'],
                     'code' => $product['code'],
+                    'price' => $product['price'],
+                    'quantity' => $product['quantity'],
+                    'sub_total' => $product['sub_total'],
                 ];
             }
 
@@ -144,6 +173,7 @@ class SaleController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error: ' . $e->getMessage());
         }
+
     }
 
     /**

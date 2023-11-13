@@ -11,22 +11,25 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('purchases', function (Blueprint $table) {
-            $table->id();
+        if(!Schema::hasTable('purchases')){
+            Schema::create('purchases', function (Blueprint $table) {
+                $table->id();
 
-            $table->string('purchase_number');
-            $table->string('company');
-            $table->string('date');
-            $table->string('income_number');
-            $table->string('electron_invoice');
-            $table->string('debet');
-            $table->string('credit');
-            $table->string('without_adv');
-            $table->string('amount_adv');
-            $table->string('total_amount');
+                $table->string('purchase_number');
+                $table->string('company');
+                $table->string('date');
+                $table->string('income_number');
+                $table->string('electron_invoice');
+                $table->string('debet');
+                $table->string('credit');
+                $table->string('without_adv');
+                $table->string('amount_adv');
+                $table->string('total_amount');
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
 
-            $table->timestamps();
-        });
     }
 
     /**

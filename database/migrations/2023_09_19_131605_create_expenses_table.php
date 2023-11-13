@@ -11,14 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('expenses', function (Blueprint $table) {
-            $table->id();
-            $table->string('expense_number');
-            $table->string('company');
-            $table->string('warehouse_name');
-            $table->string('date');
-            $table->timestamps();
-        });
+        if(!Schema::hasTable('expenses')){
+            Schema::create('expenses', function (Blueprint $table) {
+                $table->id();
+                $table->string('expense_number');
+                $table->string('company');
+                $table->string('warehouse_name');
+                $table->string('date');
+                $table->timestamps();
+            });
+        }
     }
 
     /**
