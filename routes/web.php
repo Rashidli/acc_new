@@ -68,11 +68,11 @@ Route::group(['middleware' =>'auth'], function (){
 
     Route::resource('quotations',QuotationController::class);
     Route::resource('sales',SaleController::class);
-    Route::post('/getProducts', [SaleController::class,'getProducts'])->name('getProducts');
-
-
+    Route::post('/getQuotationProducts', [SaleController::class,'getQuotationProducts'])->name('getQuotationProducts');
+    Route::post('/getSaleProducts', [SaleController::class,'getSaleProducts'])->name('getSaleProducts');
 
     Route::post('/group_payment',[PackageController::class,'group_payment'])->name('group_payment');
     Route::get('/packages',[PackageController::class, 'index'])->name('packages.index');
     Route::delete('/packages/{package}',[PackageController::class, 'destroy'])->name('packages.destroy');
+
 });

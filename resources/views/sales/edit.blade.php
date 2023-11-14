@@ -91,12 +91,12 @@
                                         @forelse($sale->products as $product)
                                             <tr data-repeater-item>
                                                 <td>
-                                                    <select required name="product_id" class="electron_invoice_select" id="productSelect">
+                                                    <select required name="product_id" class="electron_invoice_select">
                                                         <option selected disabled>----- </option>
                                                         @foreach($products as $availableProduct)
                                                             <option {{ $product->id == $availableProduct->id ? 'selected' : '' }}
                                                                     value="{{ $availableProduct->id }}" data-unit="{{ $availableProduct->unit }}"
-                                                                    data-code="{{ $availableProduct->code }}">{{ $availableProduct->title }}</option>
+                                                                    data-code="{{ $availableProduct->code }}" data-price="{{$availableProduct->pivot->price}}">{{ $availableProduct->title }}</option>
                                                         @endforeach
                                                     </select>
                                                 </td>
@@ -168,6 +168,7 @@
 
 
         function handleInstitutionChange() {
+
             var selectedOption = $(this).find(':selected');
             var idValue = selectedOption.val();
 
@@ -179,7 +180,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '/getProducts',
+                url: '/getQuotationProducts',
                 data: { id: idValue },
                 success: function(response) {
 
@@ -218,7 +219,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '/getProducts',
+                url: '/getQuotationProducts',
                 data: { id: idValue },
                 success: function(response) {
                     var newRow = $('.repeater').find('tbody tr').last();

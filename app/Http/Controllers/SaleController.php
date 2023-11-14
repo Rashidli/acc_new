@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Quotation;
 use App\Models\Sale;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use function Termwind\renderUsing;
 
 class SaleController extends Controller
@@ -42,7 +43,7 @@ class SaleController extends Controller
 
     }
 
-    public function getProducts(Request $request)
+    public function getQuotationProducts(Request $request)
     {
 
         try {
@@ -54,6 +55,22 @@ class SaleController extends Controller
         } catch (\Exception $e) {
             return response()->json(['error' => 'Quotation not found'], 404);
         }
+
+    }
+
+    public function getSaleProducts(Request $request)
+    {
+
+        try {
+            $sale = Sale::with('products')->where('status', Status::APPROVED)->findOrFail($request->id);
+
+            $products = $sale->products;
+
+            return response()->json($products);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Sale not found'], 404);
+        }
+
     }
 
     /**
@@ -76,7 +93,7 @@ class SaleController extends Controller
             'sub_total'=> 'nullable',
             'total_amount'=>'required'
         ]);
-
+        DB::beginTransaction();
         try {
             $sale = Sale::create($validated);
 
@@ -94,10 +111,10 @@ class SaleController extends Controller
             }
 
             $sale->products()->attach($productData);
-
+            DB::commit();
             return redirect()->route('sales.index')->with('message', 'Satış əlavə edildi.');
         } catch (\Exception $e) {
-
+            DB::rollBack();
             return redirect()->back()->with('error', 'Error: ' . $e->getMessage());
 
         }
@@ -134,7 +151,6 @@ class SaleController extends Controller
     public function update(Request $request, Sale $sale)
     {
 
-//        dd($request->all());
 
         $validated = $request->validate([
             'sale_number' => 'required',
@@ -149,7 +165,7 @@ class SaleController extends Controller
             'total_amount'=>'required',
             'status'=>'required',
         ]);
-
+        DB::beginTransaction();
         try {
             $sale->update($validated);
 
@@ -167,10 +183,11 @@ class SaleController extends Controller
             }
 
             $sale->products()->sync($productData);
-
+            DB::commit();
             return redirect()->back()->with('message', 'Satış dəyişdirildi.');
 
         } catch (\Exception $e) {
+            DB::rollBack();
             return redirect()->back()->with('error', 'Error: ' . $e->getMessage());
         }
 

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Status;
 use App\Http\Requests\ExpenseRequest;
 use App\Models\Expense;
 use App\Models\Institution;
+use App\Models\Sale;
 use App\Models\Warehouse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -32,11 +34,12 @@ class ExpenseController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+
     public function create()
     {
-        $ins = Institution::all();
         $wares = Warehouse::all();
-        return view('expenses.create', compact('ins','wares'));
+        $sale_orders = Sale::where('status', Status::APPROVED)->get();
+        return view('expenses.create', compact('sale_orders','wares'));
     }
 
     /**
@@ -46,7 +49,7 @@ class ExpenseController extends Controller
     public function store(Request $request)
     {
 
-
+        DB::beginTransaction();
         try {
             $expense = new Expense();
 
@@ -67,11 +70,21 @@ class ExpenseController extends Controller
             $expense->expense_number = $expense_number;
             $expense->save();
 
-            if($request->orderProducts ){
-                foreach ($request->orderProducts as $product){
-                    $expense->products()->attach($product['product_id'], ['quantity'=>$product['measure']]);
-                }
+
+            $products = $request->expense_products;
+            $productData = [];
+
+            foreach ($products as $product) {
+                $productData[$product['product_id']] = [
+                    'unit' => $product['unit'],
+                    'code' => $product['code'],
+                    'quantity' => $product['quantity'],
+                ];
             }
+
+            $expense->products()->attach($productData);
+
+
             DB::commit();
             return redirect()->route('expenses.index')->with('message', 'Məxaric əlavə edildi.');
         }catch (\Exception $exception){

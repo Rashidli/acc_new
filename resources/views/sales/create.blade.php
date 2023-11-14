@@ -89,7 +89,7 @@
                                                 <tr data-repeater-item>
 
                                                     <td>
-                                                        <select required name="product_id" class="electron_invoice_select" id="productSelect">
+                                                        <select required name="product_id" class="electron_invoice_select">
 
 {{--                                                            @foreach($products as $product)--}}
 {{--                                                                <option value="{{$product->id}}" data-unit="{{$product->unit}}" data-code="{{$product->code}}" >{{$product->title}}</option>--}}
@@ -168,7 +168,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '/getProducts',
+                url: '/getQuotationProducts',
                 data: { id: idValue },
                 success: function(response) {
 
@@ -207,7 +207,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '/getProducts',
+                url: '/getQuotationProducts',
                 data: { id: idValue },
                 success: function(response) {
                     var newRow = $('.repeater').find('tbody tr').last();
