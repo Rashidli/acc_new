@@ -114,6 +114,8 @@
 @include('includes.footer')
 <script>
     $(document).ready(function (){
+
+
         $('#sale_id').change(function (){
             var selectedOption = $(this).find(':selected');
             var company = selectedOption.data('company');
@@ -145,7 +147,6 @@
                     productSelect.append(defaultOption);
 
                     $.each(response, function(index, product) {
-                        // Append product to product_list
                         var newRow = $('<tr data-repeater-item>');
                         newRow.append('<td><select required name="product_id" class="electron_invoice_select"></select></td>');
                         newRow.append('<td><input required name="unit" value="' + product.unit + '" class="form-control unit"></td>');
@@ -154,7 +155,6 @@
                         newRow.append('<td><button data-repeater-delete class="btn btn-danger" type="button">-</button></td>');
                         product_list.append(newRow);
 
-                        // Append the option to the dynamically created productSelect
                         var productSelectElement = newRow.find('.electron_invoice_select');
 
 
@@ -172,11 +172,11 @@
                             productSelectElement.append(option);
                             $('.electron_invoice_select').select2();
                         });
-
+                        $('.repeater').repeater();
                     });
                 },
                 error: function(xhr, status, error) {
-                    // Handle errors here
+
                 }
             });
         }
@@ -194,16 +194,14 @@
                     var newRow = $('.repeater').find('tbody tr').last();
 
                     var productSelect = newRow.find('.electron_invoice_select');
-                    productSelect.empty(); // Clear existing options
+                    productSelect.empty();
 
-                    // Add the default "-----" option
                     var defaultOption = $('<option>', {
                         selected: true,
                         disabled: true
                     }).text('-----');
                     productSelect.append(defaultOption);
 
-                    // Add new options based on the response
                     $.each(response, function(index, product) {
                         var option = $('<option>', {
                             value: product.id,
@@ -216,7 +214,7 @@
                     });
                 },
                 error: function(xhr, status, error) {
-                    // Handle errors here
+
                 }
             });
         }
@@ -227,18 +225,17 @@
         });
 
         $(document).on('change', '.electron_invoice_select', function () {
-            // Get the selected option
+
             var selectedOption = $(this).find(':selected');
-            // Get the value of the data-code and data-unit attributes
+
             var codeValue = selectedOption.data('code');
             var unitValue = selectedOption.data('unit');
             var priceValue = selectedOption.data('quantity');
-            // Find the corresponding code and unit inputs directly within the same table row
+
             var codeInput = $(this).closest('tr').find('.code');
             var unitInput = $(this).closest('tr').find('.unit');
             var priceInput = $(this).closest('tr').find('.quantity');
 
-            // Set the value of the code and unit inputs
             codeInput.val(codeValue);
             unitInput.val(unitValue);
             priceInput.val(priceValue);

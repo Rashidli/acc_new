@@ -192,6 +192,7 @@
 
                         productSelect.append(option);
                     });
+
                 },
                 error: function(xhr, status, error) {
                     // Handle errors here

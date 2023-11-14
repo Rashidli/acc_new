@@ -49,15 +49,21 @@ class ExpenseController extends Controller
     public function store(Request $request)
     {
 
+        dd($request->all());
+
         DB::beginTransaction();
+
         try {
-            $expense = new Expense();
 
             $request->validate([
                 'date' => 'required',
                 'company' => 'required',
                 'warehouse_name' => 'required',
             ]);
+
+            $expense = new Expense();
+
+
 
             $expense->date = $request->date;
             $expense->company = $request->company;
