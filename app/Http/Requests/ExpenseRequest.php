@@ -23,7 +23,9 @@ class ExpenseRequest extends FormRequest
     {
         return [
             'date'=>'required',
+            'sale_id'=>'required',
             'company'=>'required',
+            'status'=>'required',
             'warehouse_name'=>'required'
         ];
     }

@@ -49,8 +49,6 @@ class ExpenseController extends Controller
     public function store(Request $request)
     {
 
-        dd($request->all());
-
         DB::beginTransaction();
 
         try {
@@ -116,11 +114,14 @@ class ExpenseController extends Controller
     public function edit(Expense $expense)
     {
 
-        $ins = Institution::all();
+        $sale_orders = Sale::where('status', Status::APPROVED)->get();
+        $products = Sale::with('products')->findOrFail($expense->sale_id)->products;
+
         $wares = Warehouse::all();
-        return view('expenses.edit', compact('expense' ,'ins','wares'));
+        return view('expenses.edit', compact('expense','products' ,'sale_orders','wares'));
 
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -129,19 +130,24 @@ class ExpenseController extends Controller
     public function update(ExpenseRequest $request, Expense $expense)
     {
 
+        DB::beginTransaction();
         try {
+
             $validated = $request->validated();
             $expense->update($validated);
 
-            if ($request->orderProducts) {
-                $productData = [];
+            $products = $request->expense_products;
+            $productData = [];
 
-                foreach ($request->orderProducts as $product) {
-                    $productData[$product['product_id']] = ['quantity' => $product['measure']];
-                }
-
-                $expense->products()->sync($productData);
+            foreach ($products as $product) {
+                $productData[$product['product_id']] = [
+                    'unit' => $product['unit'],
+                    'code' => $product['code'],
+                    'quantity' => $product['quantity'],
+                ];
             }
+
+            $expense->products()->sync($productData);
 
             DB::commit();
             return redirect()->back()->with('message', 'Məxaric dəyişdirildi.');

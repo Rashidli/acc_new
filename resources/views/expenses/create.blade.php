@@ -51,7 +51,6 @@
                                 </div>
                                 <div class="col-12">
 
-{{--                                    @livewire('products')--}}
 
                                     <br>
                                     <br>

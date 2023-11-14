@@ -40,6 +40,7 @@
                                                 <th>Müəssisə</th>
                                                 <th>Anbar adı</th>
                                                 <th>Tarix</th>
+                                                <th>Status</th>
 
                                             </tr>
                                         </thead>
@@ -53,7 +54,7 @@
                                                 <td>{{$expense->company}}</td>
                                                 <td>{{$expense->warehouse_name}}</td>
                                                 <td>{{$expense->date}}</td>
-
+                                                <td style="color: {{ \App\Enums\Status::getStatusColor($expense->status) }};">{{ \App\Enums\Status::getStatusLabel($expense->status) }}</td>
                                             </tr>
                                         @endforeach
 

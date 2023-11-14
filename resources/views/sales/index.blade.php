@@ -37,7 +37,7 @@
 
                                                 <th>Seç</th>
                                                 <th>№</th>
-                                                <th>Quotation</th>
+{{--                                                <th>Quotation</th>--}}
                                                 <th>Müəssisə</th>
                                                 <th>Müqavilə</th>
                                                 <th>Tarix</th>
@@ -52,7 +52,7 @@
 
                                                 <td><input type="radio" class="radio_input" name="check" data-edit="{{route('sales.edit',$sale->id)}}" data-delete="{{route('sales.destroy', $sale->id)}}"></td>
                                                 <td>{{$sale->sale_number}}</td>
-                                                <td>{{$sale->quotation_id}}</td>
+{{--                                                <td>{{$sale->quotation_id}}</td>--}}
                                                 <td>{{$sale->company}}</td>
                                                 <td>{{$sale->contract}}</td>
                                                 <td>{{$sale->date}}</td>

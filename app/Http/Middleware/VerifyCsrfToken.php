@@ -14,6 +14,7 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         'group_payment',
         'getQuotationProducts',
-        'getSaleProducts'
+        'getSaleProducts',
+        'getExpenseProducts',
     ];
 }

@@ -9,7 +9,7 @@ class Expense extends Model
 {
     use HasFactory;
     protected $table = 'expenses';
-    protected $fillable = ['company','warehouse_name','date'];
+    protected $fillable = ['company','warehouse_name','date','sale_id','status'];
 
     public function products()
     {

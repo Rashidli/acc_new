@@ -6,6 +6,7 @@ class Status
     public const PENDING = 1;
     public const APPROVED = 2;
     public const CANCELLED = 3;
+    public const DELIVERED = 4;
 
     public static function getStatusLabel($status)
     {
@@ -16,6 +17,8 @@ class Status
                 return 'Approved';
             case self::CANCELLED:
                 return 'Cancelled';
+            case self::DELIVERED:
+                return 'Delivered';
             default:
                 return 'Unknown';
         }
@@ -30,6 +33,8 @@ class Status
                 return 'green';
             case self::CANCELLED:
                 return 'red';
+            case self::DELIVERED:
+                return '#ffcb00';
             default:
                 return '';
         }
