@@ -19,7 +19,7 @@
                                     <select class="form-control js-example-basic-single" type="text" name="sale_id" id="sale_id">
                                         <option selected disabled>----- </option>
                                         @foreach($sale_orders as $c)
-                                            <option value="{{$c->id}}" {{$expense->sale_id == $c->id ? 'selected' : ''}}>{{$c->sale_number}}</option>
+                                            <option data-company="{{$c->company}}" value="{{$c->id}}" {{$expense->sale_id == $c->id ? 'selected' : ''}}>{{$c->sale_number}}</option>
                                         @endforeach
                                     </select>
                                     @if($errors->first('sale_id')) <small class="form-text text-danger">{{$errors->first('sale_id')}}</small> @endif
@@ -29,7 +29,7 @@
                             <div class="col-3">
                                 <div class="mb-3">
                                     <label class="col-form-label">Müəssisə adı</label>
-                                    <input value="{{$expense->company}}" class="form-control" type="text" name="company">
+                                    <input value="{{$expense->company}}" class="form-control company" type="text" name="company">
                                     @if($errors->first('company')) <small class="form-text text-danger">{{$errors->first('company')}}</small> @endif
                                 </div>
                             </div>
@@ -113,7 +113,7 @@
                                 <div class="mb-3">
                                     <label class="col-form-label">Status</label>
                                     <select class="form-control js-example-basic-single" type="text" name="status">
-                                        <option value="1" {{$expense->status == 1 ? 'selected' : ''}}>Pending</option>
+                                        <option value="5" {{$expense->status == 5 ? 'selected' : ''}}>Send</option>
                                         <option value="4" {{$expense->status == 4 ? 'selected' : ''}}>Delivered</option>
                                     </select>
                                     @if($errors->first('status')) <small class="form-text text-danger">{{$errors->first('status')}}</small> @endif
@@ -265,4 +265,6 @@
         });
 
     })
+
+
 </script>

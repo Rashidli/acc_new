@@ -57,6 +57,7 @@ class ExpenseController extends Controller
                 'date' => 'required',
                 'company' => 'required',
                 'warehouse_name' => 'required',
+                'sale_id' => 'required',
             ]);
 
             $expense = new Expense();
@@ -66,6 +67,7 @@ class ExpenseController extends Controller
             $expense->date = $request->date;
             $expense->company = $request->company;
             $expense->warehouse_name = $request->warehouse_name;
+            $expense->sale_id = $request->sale_id;
 
             $number = DB::table('expenses')->max('id');
 

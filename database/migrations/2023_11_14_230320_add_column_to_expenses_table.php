@@ -14,9 +14,9 @@ return new class extends Migration
     {
         Schema::table('expenses', function (Blueprint $table) {
             $table->unsignedBigInteger('sale_id')->after('id');
-            $table->enum('status',[Status::PENDING, Status::DELIVERED])
-                ->comment('1 pending 4 delivered')
-                ->default(Status::PENDING)->after('sale_id');
+            $table->enum('status',[Status::SEND, Status::DELIVERED])
+                ->comment('4 delivered 5 send')
+                ->default(Status::SEND)->after('sale_id');
         });
     }
 
