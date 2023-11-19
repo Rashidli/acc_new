@@ -234,6 +234,13 @@
                         </a>
                     </li>
 
+                    <li>
+                        <a href="{{route('invoices.index')}}">
+                            <i class="ri-layout-3-line"></i>
+                            <span>Invoices</span>
+                        </a>
+                    </li>
+
 
                 </ul>
             </div>

@@ -85,6 +85,7 @@ class ExpenseController extends Controller
                     'unit' => $product['unit'],
                     'code' => $product['code'],
                     'quantity' => $product['quantity'],
+                    'price' => $product['price'],
                 ];
             }
 
@@ -146,6 +147,7 @@ class ExpenseController extends Controller
                     'unit' => $product['unit'],
                     'code' => $product['code'],
                     'quantity' => $product['quantity'],
+                    'price' => $product['price'],
                 ];
             }
 

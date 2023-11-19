@@ -25,7 +25,6 @@ class ExpenseRequest extends FormRequest
             'date'=>'required',
             'sale_id'=>'required',
             'company'=>'required',
-            'status'=>'required',
             'warehouse_name'=>'required'
         ];
     }

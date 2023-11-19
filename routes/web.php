@@ -6,6 +6,7 @@ use App\Http\Controllers\BankPaymentController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\InstitutionController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PermissionController;
@@ -65,6 +66,7 @@ Route::group(['middleware' =>'auth'], function (){
     Route::resource('purchases',PurchaseController::class);
     Route::resource('bank_payments',BankPaymentController::class);
     Route::resource('reports',ReportController::class);
+    Route::resource('invoices',InvoiceController::class);
 
     Route::resource('quotations',QuotationController::class);
     Route::resource('sales',SaleController::class);
