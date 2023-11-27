@@ -49,6 +49,7 @@ class InvoiceController extends Controller
 
     public function store(Request $request)
     {
+//        dd($request->all());
 
         DB::beginTransaction();
         try {
@@ -124,11 +125,11 @@ class InvoiceController extends Controller
     public function edit($id)
     {
 
-        $invoice = Invoice::with('products')->findOrFail($id);
+        $invoice = Invoice::with('products')->find($id);
 
-        $products = Sale::with('products')->findOrFail($invoice->quotation_id)->products;
+//        $products = Sale::with('products')->findOrFail($invoice->quotation_id)->products;
 
-        return view('invoices.edit', compact('invoice' ,'products'));
+        return view('invoices.edit', compact('invoice' ));
 
     }
 

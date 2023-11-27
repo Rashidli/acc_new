@@ -40,6 +40,10 @@ Route::get('/rest',function (){
    \Illuminate\Support\Facades\Artisan::call('optimize:clear');
 });
 
+Route::get('/migrate',function (){
+    \Illuminate\Support\Facades\Artisan::call('migrate');
+});
+
 Route::get('/', [PageController::class,'login'])->name('login');
 Route::get('/register', [PageController::class,'register'])->name('register');
 Route::post('/login_submit',[AuthController::class,'login_submit'])->name('login_submit');

@@ -150,6 +150,7 @@
 
 
         $('#sale_id').change(function (){
+
             var selectedOption = $(this).find(':selected');
             var company = selectedOption.data('company');
             var tax_fee = selectedOption.data('tax_fee');
@@ -161,7 +162,6 @@
             $('.total-with-tax').text(total_amount).val(total_amount);
 
         })
-
 
 
         function getSaleProducts() {
@@ -218,6 +218,7 @@
                         });
                         // $('.repeater').repeater();
                     });
+                    $('.repeater').repeater();
                 },
                 error: function(xhr, status, error) {
 
@@ -239,7 +240,7 @@
                     var newRow = $('.repeater').find('tbody tr').last();
 
                     var productSelect = newRow.find('.electron_invoice_select');
-                    productSelect.empty();
+                    // productSelect.empty();
 
                     var defaultOption = $('<option>', {
                         selected: true,
@@ -292,48 +293,42 @@
             quantityInput.val(quantityValue);
             priceInput.val(priceValue);
             sub_totalInput.val(sub_totalValue);
+            calculateTotal();
+
         });
 
 
-        // Add event listeners for quantity and price input fields
         $('.repeater').on('input', '.quantity, .price', function() {
             calculateSubtotal($(this).closest('tr'));
             calculateTotal();
         });
 
-        // Function to calculate subtotal
         function calculateSubtotal(row) {
             var quantity = parseFloat(row.find('.quantity').val()) || 0;
             var price = parseFloat(row.find('.price').val()) || 0;
 
             var subtotal = quantity * price;
 
-            // Set the calculated subtotal value in the sub_total input field
             row.find('.sub_total').val(subtotal.toFixed(2));
         }
 
-        // Function to calculate total of subtotals
         function calculateTotal() {
             var total = 0;
 
-            // Iterate through each row and sum up the subtotals
             $('.repeater tbody tr').each(function () {
                 total += parseFloat($(this).find('.sub_total').val()) || 0;
             });
 
-            // Calculate tax-related values
             var taxRate = $('input[name="tax"]').is(':checked') ? 0.18 : 0;
             var taxAmount = total * taxRate;
             var totalWithTax = total + taxAmount;
 
-            // Set the calculated values in the tfoot
             $('.repeater tfoot .total, .repeater tfoot .tax-amount, .repeater tfoot .total-with-tax').text('0.00').val('0.00');
             $('.repeater tfoot .total').text(total.toFixed(2)).val(total.toFixed(2));
             $('.repeater tfoot .tax-amount').text(taxAmount.toFixed(2)).val(taxAmount.toFixed(2));
             $('.repeater tfoot .total-with-tax').text(totalWithTax.toFixed(2)).val(totalWithTax.toFixed(2));
         }
 
-        // Add event listener for the "Add" button
         $('.repeater').on('click', '[data-repeater-create]', function() {
             // Add the same input event listeners for the new row
             var newRow = $(this).closest('.repeater').find('tbody tr').last();
@@ -341,6 +336,14 @@
                 calculateSubtotal($(this).closest('tr'));
                 calculateTotal();
             });
+        });
+
+        $('.repeater').on('click', '[data-repeater-delete]', function() {
+            // Remove the current row
+            var deletedRow = $(this).closest('tr');
+            deletedRow.remove();
+            // Recalculate the total amount
+            calculateTotal();
         });
 
     })

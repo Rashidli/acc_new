@@ -91,9 +91,7 @@
                                                     <td>
                                                         <select required name="product_id" class="electron_invoice_select">
 
-{{--                                                            @foreach($products as $product)--}}
-{{--                                                                <option value="{{$product->id}}" data-unit="{{$product->unit}}" data-code="{{$product->code}}" >{{$product->title}}</option>--}}
-{{--                                                            @endforeach--}}
+
                                                         </select>
                                                     </td>
                                                     <td><input required name="unit" value="" class="form-control unit"></td>
@@ -249,15 +247,6 @@
         });
 
 
-
-
-
-
-
-
-
-
-
         // Add an onchange event listener to the .electron_invoice_select using jQuery
         $(document).on('change', '.electron_invoice_select', function () {
             // Get the selected option
@@ -326,8 +315,18 @@
             });
         });
 
+
         // Add event listener for the tax checkbox
         $('input[name="tax"]').on('change', function() {
+            calculateTotal();
+        });
+
+        $('.repeater').on('click', '[data-repeater-delete]', function() {
+            // Remove the current row
+            var deletedRow = $(this).closest('tr');
+            deletedRow.remove();
+
+            // Recalculate the total amount
             calculateTotal();
         });
 

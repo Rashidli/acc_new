@@ -62,11 +62,13 @@ class SaleController extends Controller
     {
 
         try {
+
             $sale = Sale::with('products')->where('status', Status::APPROVED)->findOrFail($request->id);
 
             $products = $sale->products;
 
             return response()->json($products);
+
         } catch (\Exception $e) {
             return response()->json(['error' => 'Sale not found'], 404);
         }
